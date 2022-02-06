@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/dialog_priority_picker.xml" value="0.3333333333333333" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_create_task_bottom_sheet.xml" value="0.3333333333333333" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_todo.xml" value="0.13385416666666666" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/item_priority_picker.xml" value="0.3333333333333333" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/menu/priority_menu.xml" value="0.11666666666666667" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid.xml" value="0.1115" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_high.xml" value="0.132" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_low.xml" value="0.133" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_medium.xml" value="0.132" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/ic_checked.xml" value="0.133" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/round_rect.xml" value="0.1115" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/fragment_create_task_bottom_sheet.xml" value="0.309375" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/fragment_tag_view.xml" value="0.13385416666666666" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/fragment_todo.xml" value="0.13385416666666666" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/item_priority.xml" value="0.11875" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/layout/item_priority_picker.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/menu/priority_menu.xml" value="0.22" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

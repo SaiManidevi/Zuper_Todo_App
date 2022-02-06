@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_item_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/style_priority_dialog_text"
+            android:paddingBottom="@dimen/margin_medium"
+            app:layout_constraintBottom_toTopOf="@id/item_priority_divider"
+            app:layout_constraintEnd_toStartOf="@+id/item_priority_circle"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/label_low" />
+
+        <View
+            android:id="@+id/item_priority_circle"
+            android:layout_width="@dimen/priority_circle_size_small"
+            android:layout_height="@dimen/priority_circle_size_small"
+            android:layout_margin="@dimen/margin_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_priority"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/circle_solid_priority_low" />
+
+        <View
+            android:id="@+id/item_priority_divider"
+            style="@style/style_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_priority" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

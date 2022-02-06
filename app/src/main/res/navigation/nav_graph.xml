@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/todoFragment">
+
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.zuperinterviewtest.todo.TodoFragment"
+        android:label="fragment_todo"
+        tools:layout="@layout/fragment_todo">
+        <action
+            android:id="@+id/action_todoFragment_to_tagViewFragment"
+            app:destination="@id/tagViewFragment" />
+        <action
+            android:id="@+id/action_todoFragment_to_createTaskBottomSheetFragment"
+            app:destination="@id/createTaskBottomSheetFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/createTaskBottomSheetFragment"
+        android:name="com.zuperinterviewtest.todo.CreateTaskBottomSheetFragment"
+        android:label="fragment_create_task_bottom_sheet"
+        tools:layout="@layout/fragment_create_task_bottom_sheet" >
+        <action
+            android:id="@+id/action_createTaskBottomSheetFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/tagViewFragment"
+        android:name="com.zuperinterviewtest.todo.TagViewFragment"
+        android:label="fragment_tag_view"
+        tools:layout="@layout/fragment_tag_view" />
+</navigation>

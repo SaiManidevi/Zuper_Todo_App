@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_priority_dialog_text">
+        <item name="android:layout_margin">@dimen/margin_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/font_size_list_item</item>
+    </style>
+
+    <style name="style_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:layout_marginStart">@dimen/margin_small</item>
+        <item name="android:layout_marginEnd">@dimen/margin_small</item>
+        <item name="android:background">#C6C6C6</item>
+    </style>
+</resources>

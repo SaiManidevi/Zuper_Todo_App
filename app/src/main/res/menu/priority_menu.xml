@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_low"
+        android:icon="@drawable/circle_solid_priority_low"
+        android:orderInCategory="1"
+        android:title="@string/label_low"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_medium"
+        android:icon="@drawable/circle_solid_priority_medium"
+        android:orderInCategory="2"
+        android:title="@string/label_medium"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_high"
+        android:icon="@drawable/circle_solid_priority_high"
+        android:orderInCategory="3"
+        android:title="@string/label_high"
+        app:showAsAction="never" />
+
+</menu>
