@@ -7,10 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_gray">#EEEEEE</color>
+    <color name="light_gray">#F8F8F8</color>
 
-    <color name="priority_low">#219E4A</color>
-    <color name="priority_medium">#FFE004</color>
-    <color name="priority_high">#CE2232</color>
+    <color name="priority_low">#00C838</color>
+    <color name="priority_medium">#FFD647</color>
+    <color name="priority_high">#EF5350</color>
+    <color name="color_tag">#56C2FF</color>
 
 </resources>

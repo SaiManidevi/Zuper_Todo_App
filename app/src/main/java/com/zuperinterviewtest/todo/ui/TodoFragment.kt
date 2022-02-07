@@ -1,17 +1,32 @@
-package com.zuperinterviewtest.todo
+package com.zuperinterviewtest.todo.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.zuperinterviewtest.todo.R
+import com.zuperinterviewtest.todo.adapters.TodoAdapter
 import com.zuperinterviewtest.todo.databinding.FragmentTodoBinding
+import com.zuperinterviewtest.todo.utils.PriorityDialogFragment
+import com.zuperinterviewtest.todo.viewmodels.TodoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
     private lateinit var binding: FragmentTodoBinding
+    private lateinit var adapter: TodoAdapter
+    private val viewmodel: TodoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +49,23 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                 "PriorityPicker"
             )
         }
+        // Initialize the TodoAdapter
+        adapter = TodoAdapter(viewmodel)
+        binding.rvTodoList.adapter = adapter
+        fetchAllTodos()
         return binding.root
+    }
+
+    private fun fetchAllTodos() {
+        viewmodel.testValue.observe(viewLifecycleOwner) {
+            Log.d("TODOTEST", it.toString())
+        }
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
+            viewmodel.getAllTodos().distinctUntilChanged().collectLatest {
+                Log.d("TODOTEST", it.toString())
+                adapter.submitData(it)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

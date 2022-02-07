@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/todoFragment"
-        android:name="com.zuperinterviewtest.todo.TodoFragment"
+        android:name="com.zuperinterviewtest.todo.ui.TodoFragment"
         android:label="fragment_todo"
         tools:layout="@layout/fragment_todo">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <dialog
         android:id="@+id/createTaskBottomSheetFragment"
-        android:name="com.zuperinterviewtest.todo.CreateTaskBottomSheetFragment"
+        android:name="com.zuperinterviewtest.todo.ui.CreateTaskBottomSheetFragment"
         android:label="fragment_create_task_bottom_sheet"
         tools:layout="@layout/fragment_create_task_bottom_sheet" >
         <action
@@ -28,7 +28,7 @@
     </dialog>
     <fragment
         android:id="@+id/tagViewFragment"
-        android:name="com.zuperinterviewtest.todo.TagViewFragment"
+        android:name="com.zuperinterviewtest.todo.ui.TagViewFragment"
         android:label="fragment_tag_view"
         tools:layout="@layout/fragment_tag_view" >
         <action

@@ -31,6 +31,7 @@
             android:layout_margin="@dimen/margin_medium"
             android:hint="@string/label_task_name"
             app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pull_up_marker">
@@ -52,6 +53,7 @@
             android:layout_marginTop="@dimen/margin_small"
             android:hint="@string/label_tag"
             app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
             app:layout_constraintEnd_toStartOf="@+id/card_priority_picker"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,14 +1,12 @@
-package com.zuperinterviewtest.todo
+package com.zuperinterviewtest.todo.utils
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.zuperinterviewtest.todo.R
 import com.zuperinterviewtest.todo.adapters.PriorityMenuAdapter
-import com.zuperinterviewtest.todo.databinding.DialogPriorityPickerBinding
 
 class PriorityDialogFragment : DialogFragment() {
     private lateinit var listener: PriorityDialogListener

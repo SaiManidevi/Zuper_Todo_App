@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zuperinterviewtest.todo.viewmodels.TodoViewModel" />
+
+        <variable
+            name="todo"
+            type="com.zuperinterviewtest.todo.data.models.Todo" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small"
+        app:cardCornerRadius="@dimen/marker_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/item_rv_priority"
+                android:layout_width="@dimen/priority_circle_size_small"
+                android:layout_height="@dimen/priority_circle_size_small"
+                android:layout_margin="@dimen/margin_medium"
+                android:contentDescription="@string/cd_priority"
+                app:layout_constraintBottom_toBottomOf="@+id/item_card_tag"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/item_tv_todo"
+                app:priorityImage="@{todo.priority}"
+                tools:src="@drawable/circle_solid_priority_low" />
+
+            <TextView
+                android:id="@+id/item_tv_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                android:text="@{todo.title}"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/font_size_list_item"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@+id/item_todo_check"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/item_rv_priority"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Complete take home coding assignment" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/item_card_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                app:cardBackgroundColor="@color/color_tag"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/item_tv_todo"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_rv_priority"
+                app:layout_constraintTop_toBottomOf="@+id/item_tv_todo">
+
+                <TextView
+                    android:id="@+id/item_tv_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_medium"
+                    android:paddingEnd="@dimen/margin_medium"
+                    android:text="@{todo.tag}"
+                    android:textColor="@color/white"
+                    tools:text="Android" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/item_todo_check"
+                android:layout_width="@dimen/priority_circle_size"
+                android:layout_height="@dimen/priority_circle_size"
+                android:layout_margin="@dimen/margin_medium"
+                app:completedStatus="@{todo._completed}"
+                app:layout_constraintBottom_toBottomOf="@+id/item_card_tag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/item_tv_todo"
+                tools:src="@drawable/circle_plain" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

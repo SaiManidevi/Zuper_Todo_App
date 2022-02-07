@@ -14,4 +14,5 @@
     <string name="cd_green_circle">Green circle</string>
     <string name="cd_yellow_circle">Yellow Circle</string>
     <string name="cd_red_circle">Red circle</string>
+    <string name="cd_priority">Priority of the todo</string>
 </resources>
