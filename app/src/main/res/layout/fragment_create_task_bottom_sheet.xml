@@ -113,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
             android:text="@string/bt_text_create"
+            android:textColor="@color/white"
             app:backgroundTint="@color/purple_500"
             app:layout_constraintBottom_toBottomOf="@+id/card_priority_picker"
             app:layout_constraintEnd_toEndOf="parent"

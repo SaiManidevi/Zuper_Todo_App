@@ -21,12 +21,13 @@ class PriorityDialogFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Verify that the host activity implements the callback interface
+        // Verify that the host activity/fragment implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
+            // Instantiate the PriorityDialogListener so events (function callbacks) can be sent
+            // to host
             listener = parentFragment as PriorityDialogListener
         } catch (e: ClassCastException) {
-            // The activity doesn't implement the interface, throw exception
+            // The activity/fragment doesn't implement the interface, throw exception
             throw ClassCastException(
                 ("$context must implement PriorityDialogListener")
             )
@@ -55,7 +56,7 @@ class PriorityDialogFragment : DialogFragment() {
                 }
                 dialogInterface.dismiss()
             }
-
+            // TODO: Check binding or ensure a better way to handle priority clicks
             //builder.setView(inflater.inflate(R.layout.dialog_priority_picker, null))
             // Initialize binding variable that references [DialogPriorityPickerBinding] and
             // inflates the corresponding layout

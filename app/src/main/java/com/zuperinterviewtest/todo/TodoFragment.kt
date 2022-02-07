@@ -1,18 +1,13 @@
 package com.zuperinterviewtest.todo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.annotation.MenuRes
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.PEEK_HEIGHT_AUTO
-import com.zuperinterviewtest.todo.adapters.PriorityMenuAdapter
 import com.zuperinterviewtest.todo.databinding.FragmentTodoBinding
 
 class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
@@ -22,45 +17,29 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Initialize binding for the TodoFragment layout
         binding = FragmentTodoBinding.inflate(inflater, container, false)
-        val priorityList = listOf("Low", "Medium", "High")
-        val adapter = PriorityMenuAdapter(
-            requireContext(),
-            R.layout.item_priority_picker,
-            priorityList = priorityList
-        )
-
+        // To populate the options menu, set the [setHasOptionsMenu] to true
+        setHasOptionsMenu(true)
+        // To ensure that BottomSheet's peek height works properly,
+        // set - isGestureInsetBottomIgnored to TRUE
+        // Refer: [https://github.com/material-components/material-components-android/issues/1219]
         val createTaskBottomSheet =
             BottomSheetBehavior.from(binding.includedBottomSheet.bottomSheet)
-
         createTaskBottomSheet.isGestureInsetBottomIgnored = true
-
+        // Display the priority picker dialog on click of the dropdown icon
         binding.includedBottomSheet.ivPriorityMenu.setOnClickListener {
             PriorityDialogFragment().show(
                 childFragmentManager,
                 "PriorityPicker"
             )
-            //showMenu(it, R.menu.priority_menu)
         }
-
-
         return binding.root
     }
 
-    private fun showMenu(v: View, @MenuRes menuRes: Int) {
-        val popup = PopupMenu(requireContext(), v)
-        popup.menuInflater.inflate(menuRes, popup.menu)
-
-        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-            // Respond to menu item click.
-
-            return@setOnMenuItemClickListener true
-        }
-        popup.setOnDismissListener {
-            // Respond to popup being dismissed.
-        }
-        // Show the popup menu.
-        popup.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbarTodoFragment as Toolbar?)
     }
 
     override fun onPriorityLowClick() {
@@ -70,7 +49,6 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                 R.drawable.circle_solid_priority_low
             )
         )
-        Toast.makeText(context, "Low clicked!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPriorityMediumClick() {
@@ -80,7 +58,6 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                 R.drawable.circle_solid_priority_medium
             )
         )
-        Toast.makeText(context, "Medium clicked!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPriorityHighClick() {
@@ -90,7 +67,24 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                 R.drawable.circle_solid_priority_high
             )
         )
-        Toast.makeText(context, "High clicked!", Toast.LENGTH_SHORT).show()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_toolbar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_tag_view -> {
+                showTagView()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showTagView() {
+        findNavController().navigate(R.id.action_todoFragment_to_tagViewFragment)
+    }
 }
