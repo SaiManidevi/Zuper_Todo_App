@@ -1,8 +1,9 @@
 package com.zuperinterviewtest.todo.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.SearchView
+import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zuperinterviewtest.todo.R
 import com.zuperinterviewtest.todo.adapters.TodoAdapter
@@ -53,16 +55,75 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         adapter = TodoAdapter(viewmodel)
         binding.rvTodoList.adapter = adapter
         fetchAllTodos()
+        setUpSearchViewListener()
+        setUpAdapterLoadStateListener()
+        // [Not using it now - since Inline-Search is required]
+        // Get the SearchView and set the searchable configuration
+        // setUpSearchableConfig()
         return binding.root
     }
 
-    private fun fetchAllTodos() {
-        viewmodel.testValue.observe(viewLifecycleOwner) {
-            Log.d("TODOTEST", it.toString())
+    private fun setUpAdapterLoadStateListener() {
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.Loading) {
+                recyclerViewVisibilityState(
+                    showRecyclerView = false,
+                    lottieAnimFile = R.raw.loading
+                )
+            } else recyclerViewVisibilityState(showRecyclerView = true)
+
+            if (loadState.source.refresh is LoadState.NotLoading && adapter.itemCount < 1) {
+                recyclerViewVisibilityState(
+                    showRecyclerView = false,
+                    lottieAnimFile = R.raw.empty_box
+                )
+            } else recyclerViewVisibilityState(showRecyclerView = true)
         }
+    }
+
+    private fun setUpSearchViewListener() {
+        binding.searchTasks.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Now that submit is clicked, keyboard will be hidden so display bottomSheet
+                bottomSheetVisibilityState(showBottomSheet = true)
+                query?.let { fetchTodoByTag(query) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Keyboard is currently visible, so hide the bottomSheet
+                bottomSheetVisibilityState(showBottomSheet = false)
+                newText?.let {
+                    if (newText.length > 3) fetchTodoByTag(newText)
+                    if (newText.isEmpty()) {
+                        // User cleared the search text, so display all results & show bottomSheet
+                        fetchAllTodos()
+                        bottomSheetVisibilityState(showBottomSheet = true)
+                    }
+                }
+                if (newText == null) {
+                    // Somethings wrong, show display all results & show bottomSheet
+                    fetchAllTodos()
+                    bottomSheetVisibilityState(showBottomSheet = true)
+                }
+                return false
+            }
+        })
+    }
+
+    private fun fetchTodoByTag(searchTag: String) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
+            viewmodel.getAllTodosByTag(searchTag = searchTag).distinctUntilChanged()
+                .collectLatest {
+                    adapter.submitData(it)
+                }
+        }
+    }
+
+    private fun fetchAllTodos() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
             viewmodel.getAllTodos().distinctUntilChanged().collectLatest {
-                Log.d("TODOTEST", it.toString())
                 adapter.submitData(it)
             }
         }
@@ -118,4 +179,50 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
     private fun showTagView() {
         findNavController().navigate(R.id.action_todoFragment_to_tagViewFragment)
     }
+
+    private fun bottomSheetVisibilityState(showBottomSheet: Boolean) {
+        if (showBottomSheet) {
+            binding.includedBottomSheet.bottomSheet.visibility = View.VISIBLE
+        } else {
+            binding.includedBottomSheet.bottomSheet.visibility = View.GONE
+        }
+    }
+
+    private fun recyclerViewVisibilityState(
+        showRecyclerView: Boolean,
+        @RawRes lottieAnimFile: Int = R.raw.loading
+    ) {
+        if (showRecyclerView) {
+            // Show Recyclerview & hide Lottie Animation
+            binding.lottieAnim.pauseAnimation()
+            binding.lottieAnim.visibility = View.GONE
+            binding.rvTodoList.visibility = View.VISIBLE
+        } else {
+            // Hide recyclerview & show Lottie Animation
+            binding.lottieAnim.visibility = View.VISIBLE
+            binding.rvTodoList.visibility = View.GONE
+            binding.lottieAnim.setAnimation(lottieAnimFile)
+            binding.lottieAnim.playAnimation()
+        }
+    }
+
+
+    /**
+     * Helper function to set up Searchbar configuration to display search results in another screen
+     * Refer [SearchableActivity] to know more, this is not added currently.
+     */
+    /*private fun setUpSearchableConfig() {
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        binding.searchTasks.apply {
+            setSearchableInfo(
+                searchManager.getSearchableInfo(
+                    ComponentName(
+                        requireActivity().applicationContext,
+                        SearchableActivity::class.java
+                    )
+                )
+            )
+        }
+    }*/
 }

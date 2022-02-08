@@ -9,11 +9,14 @@
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_medium.xml" value="0.1215" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/ic_arrow_drop_down.xml" value="0.1215" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/ic_checked.xml" value="0.1215" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/ic_search_24.xml" value="0.133" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/ic_tag_view.xml" value="0.1215" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/round_rect.xml" value="0.1215" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/drawable/rounded_rect.xml" value="0.133" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/activity_main.xml" value="0.11822916666666666" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/activity_searchable.xml" value="0.13385416666666666" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/dialog_priority_picker.xml" value="0.3333333333333333" />
-        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_create_task_bottom_sheet.xml" value="0.3333333333333333" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_create_task_bottom_sheet.xml" value="0.23645833333333333" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_tag_view.xml" value="0.309375" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/fragment_todo.xml" value="0.309375" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/item_priority_picker.xml" value="0.3333333333333333" />
@@ -21,6 +24,7 @@
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/layout/toolbar.xml" value="0.3333333333333333" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/menu/menu_toolbar.xml" value="0.13385416666666666" />
         <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/menu/priority_menu.xml" value="0.11666666666666667" />
+        <entry key="..\:/Android Apps/Zuper_Todo/app/src/main/res/xml/searchable.xml" value="0.13385416666666666" />
         <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid.xml" value="0.1115" />
         <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_high.xml" value="0.132" />
         <entry key="..\:/AndroidApps/Zuper_Todo/app/src/main/res/drawable/circle_solid_priority_low.xml" value="0.133" />

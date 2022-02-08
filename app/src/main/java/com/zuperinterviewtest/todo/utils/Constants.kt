@@ -10,5 +10,5 @@ object Constants {
     const val QUERY_AUTHOR = "author"
     const val SAMPLE_AUTHOR = "Ranjith"
     const val AUTHOR = "Manidevi"
-    val PRIORITY_LIST = listOf("LOW", "MEDIUM", "HIGH")
+    const val TAG = "tag"
 }

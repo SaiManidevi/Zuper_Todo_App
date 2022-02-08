@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.data.models.TodoResult
+import com.zuperinterviewtest.todo.data.remote.TodoSearchQueryPagingSource
 import com.zuperinterviewtest.todo.utils.Constants
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
@@ -15,21 +16,29 @@ import javax.inject.Singleton
 
 @Singleton
 class TodoRepository @Inject constructor(private val todoApiHelper: TodoApiHelper) {
-
+    /**
+     * Function that returns a flow encapsulated in PagingData [Todo]
+     * @param pagingConfig - PagingConfiguration given below in this class
+     */
     fun getTodoResults(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<Todo>> {
-        Log.d("TODOTEST", "Inside getAllTodos - Repo")
         return Pager(
             config = pagingConfig,
             pagingSourceFactory = { TodoPagingSource(apiHelper = todoApiHelper) }
         ).flow
     }
 
-    suspend fun test(): Response<TodoResult> {
-        return todoApiHelper.getTodos(
-            page = 1,
-            limit = TodoPagingSource.LIMIT,
-            author = Constants.SAMPLE_AUTHOR
-        )
+    fun getTodoResultsBySearchQuery(
+        pagingConfig: PagingConfig = getDefaultPageConfig(),
+        searchTag: String
+    ): Flow<PagingData<Todo>> {
+        return Pager(config = pagingConfig,
+            pagingSourceFactory = {
+                TodoSearchQueryPagingSource(
+                    apiHelper = todoApiHelper,
+                    searchQuery = searchTag
+                )
+            }
+        ).flow
     }
 
     private fun getDefaultPageConfig(): PagingConfig {
@@ -40,6 +49,6 @@ class TodoRepository @Inject constructor(private val todoApiHelper: TodoApiHelpe
     }
 
     companion object {
-        const val DEFAULT_PAGE_SIZE = 2
+        const val DEFAULT_PAGE_SIZE = 1
     }
 }

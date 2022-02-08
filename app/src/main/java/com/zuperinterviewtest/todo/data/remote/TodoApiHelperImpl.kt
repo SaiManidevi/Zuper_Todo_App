@@ -10,4 +10,13 @@ class TodoApiHelperImpl @Inject constructor(private val apiService: TodoApiServi
         return apiService.getTodos(page, limit, author)
     }
 
+    override suspend fun getTodosBySearchQuery(
+        page: Int,
+        limit: Int,
+        author: String,
+        searchQueryTag: String
+    ): Response<TodoResult> {
+        return apiService.getTodosBySearchQuery(page, limit, author, searchQueryTag)
+    }
+
 }
