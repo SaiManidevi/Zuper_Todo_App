@@ -1,6 +1,5 @@
 package com.zuperinterviewtest.todo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -25,7 +24,6 @@ class TodoAdapter(private val todoViewModel: TodoViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currentTodo: Todo, todoViewModel: TodoViewModel) {
-            Log.d("TODOTEST", "currentTodo: ${currentTodo.title}")
             binding.apply {
                 viewmodel = todoViewModel
                 todo = currentTodo
