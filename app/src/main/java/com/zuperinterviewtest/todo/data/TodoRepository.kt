@@ -7,6 +7,7 @@ import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.data.models.TodoResult
 import com.zuperinterviewtest.todo.utils.Constants
+import com.zuperinterviewtest.todo.utils.Constants.AUTHOR
 import com.zuperinterviewtest.todo.utils.DataStoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,7 @@ class TodoRepository @Inject constructor(
         todoApiHelper.getTodos(
             page = INITIAL_PAGE,
             limit = LIMIT_TAG_VIEW,
-            author = Constants.SAMPLE_AUTHOR
+            author = AUTHOR
         )
     }
 
