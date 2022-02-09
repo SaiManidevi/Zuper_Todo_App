@@ -46,7 +46,7 @@ interface TodoApiService {
     // http://167.71.235.242:3000/todo/1
     @PUT("todo/{id}")
     suspend fun updateTodoCompletedStatus(
-        @Path("id") todoID: Int,
+        @Path("id") id: Int,
         @Body updatedTodo: Todo
-    ): Call<ResponseBody>
+    ): Response<Todo>
 }

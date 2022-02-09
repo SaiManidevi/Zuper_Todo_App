@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.zuperinterviewtest.todo.R
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.databinding.ItemTodoBinding
 import com.zuperinterviewtest.todo.viewmodels.TodoViewModel
@@ -25,9 +26,16 @@ class TodoAdapter(private val todoViewModel: TodoViewModel) :
 
         fun bind(currentTodo: Todo, todoViewModel: TodoViewModel) {
             binding.apply {
-                viewmodel = todoViewModel
                 todo = currentTodo
                 executePendingBindings()
+            }
+            binding.itemCardTodo.setOnClickListener {
+                // If current clicked task's completed status is TRUE - change to FALSE and display empty circle
+                if (currentTodo.is_completed) binding.itemTodoCheck.setImageResource(R.drawable.circle_plain)
+                // Else display Checked circle
+                else binding.itemTodoCheck.setImageResource(R.drawable.ic_checked)
+                todoViewModel.updateTodoCompletedState(currentTodo)
+
             }
         }
 

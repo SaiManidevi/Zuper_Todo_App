@@ -33,9 +33,9 @@ class TodoApiHelperImpl @Inject constructor(private val apiService: TodoApiServi
     override suspend fun updateTodoCompletedStatus(
         todoId: Int,
         updatedTodo: Todo
-    ): Call<ResponseBody> {
+    ): Response<Todo> {
         return apiService.updateTodoCompletedStatus(
-            todoID = todoId,
+            id = todoId,
             updatedTodo = updatedTodo
         )
     }

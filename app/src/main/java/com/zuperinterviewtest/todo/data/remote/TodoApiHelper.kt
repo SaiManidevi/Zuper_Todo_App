@@ -21,5 +21,5 @@ interface TodoApiHelper {
 
     suspend fun postNewTodo(newTodo: Todo): Response<Todo>
 
-    suspend fun updateTodoCompletedStatus(todoId: Int, updatedTodo: Todo): Call<ResponseBody>
+    suspend fun updateTodoCompletedStatus(todoId: Int, updatedTodo: Todo): Response<Todo>
 }
