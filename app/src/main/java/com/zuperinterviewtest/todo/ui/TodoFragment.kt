@@ -1,12 +1,16 @@
 package com.zuperinterviewtest.todo.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +19,10 @@ import androidx.paging.LoadState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zuperinterviewtest.todo.R
 import com.zuperinterviewtest.todo.adapters.TodoAdapter
+import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.databinding.FragmentTodoBinding
+import com.zuperinterviewtest.todo.utils.Constants
+import com.zuperinterviewtest.todo.utils.Constants.AUTHOR
 import com.zuperinterviewtest.todo.utils.PriorityDialogFragment
 import com.zuperinterviewtest.todo.viewmodels.TodoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,10 +64,58 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         fetchAllTodos()
         setUpSearchViewListener()
         setUpAdapterLoadStateListener()
+        setUpCreateTodoClickListener()
         // [Not using it now - since Inline-Search is required]
         // Get the SearchView and set the searchable configuration
         // setUpSearchableConfig()
+        viewmodel.totalTodoCount.observe(viewLifecycleOwner) {
+            viewmodel.totalCount = it
+        }
         return binding.root
+    }
+
+    private fun setUpCreateTodoClickListener() {
+        binding.includedBottomSheet.apply {
+            // Handle error message & removal of error message for TextInputLayout - Title
+            tedTaskName.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrBlank()) tilTaskName.error =
+                    getString(R.string.error_no_todo)
+                else tilTaskName.error = null
+            }
+            // Handle error message & removal of error message for TextInputLayout - TAG
+            tedTaskTag.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrBlank()) tilTaskTag.error =
+                    getString(R.string.error_no_tag)
+                else tilTaskTag.error = null
+            }
+            // Set up [CREATE TASK] button click listener
+            btCreateTask.setOnClickListener {
+                // Get the current selected priority
+                val currentPriority: String = viewmodel.selectedPriority.value ?: "LOW"
+                val newTodoTitle: String? =
+                    if (tedTaskName.text.isNullOrBlank()) {
+                        tilTaskName.error = getString(R.string.error_no_todo)
+                        null
+                    } else tedTaskName.text.toString()
+
+                val newTodoTag: String? =
+                    if (tedTaskTag.text.isNullOrBlank()) {
+                        tilTaskTag.error = getString(R.string.error_no_tag)
+                        null
+                    } else tedTaskTag.text.toString()
+                if (newTodoTitle != null && newTodoTag != null) {
+                    val newTodo = Todo(
+                        title = newTodoTitle,
+                        author = AUTHOR,
+                        tag = newTodoTag,
+                        is_completed = false,
+                        priority = currentPriority,
+                        id = viewmodel.totalCount + 1
+                    )
+                    viewmodel.postNewTodo(newTodo)
+                }
+            }
+        }
     }
 
     private fun setUpAdapterLoadStateListener() {
@@ -134,29 +189,25 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbarTodoFragment as Toolbar?)
     }
 
-    override fun onPriorityLowClick() {
-        binding.includedBottomSheet.ivPriority.setImageDrawable(
-            AppCompatResources.getDrawable(
-                requireContext(),
+    override fun onTodoPriorityClick(selectedPriority: Constants.PRIORITY) {
+        val priorityCircleResourceId = when (selectedPriority) {
+            Constants.PRIORITY.LOW -> {
+                viewmodel.selectedPriority.postValue("LOW")
                 R.drawable.circle_solid_priority_low
-            )
-        )
-    }
-
-    override fun onPriorityMediumClick() {
-        binding.includedBottomSheet.ivPriority.setImageDrawable(
-            AppCompatResources.getDrawable(
-                requireContext(),
+            }
+            Constants.PRIORITY.MEDIUM -> {
+                viewmodel.selectedPriority.postValue("MEDIUM")
                 R.drawable.circle_solid_priority_medium
-            )
-        )
-    }
-
-    override fun onPriorityHighClick() {
+            }
+            Constants.PRIORITY.HIGH -> {
+                viewmodel.selectedPriority.postValue("HIGH")
+                R.drawable.circle_solid_priority_high
+            }
+        }
         binding.includedBottomSheet.ivPriority.setImageDrawable(
             AppCompatResources.getDrawable(
                 requireContext(),
-                R.drawable.circle_solid_priority_high
+                priorityCircleResourceId
             )
         )
     }
@@ -193,15 +244,18 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         @RawRes lottieAnimFile: Int = R.raw.loading
     ) {
         if (showRecyclerView) {
-            // Show Recyclerview & hide Lottie Animation
+            // Show Recyclerview, hide Lottie Animation & helper textview
+            binding.rvTodoList.visibility = View.VISIBLE
             binding.lottieAnim.pauseAnimation()
             binding.lottieAnim.visibility = View.GONE
-            binding.rvTodoList.visibility = View.VISIBLE
+            binding.tvNoTasks.visibility = View.GONE
         } else {
-            // Hide recyclerview & show Lottie Animation
-            binding.lottieAnim.visibility = View.VISIBLE
+            // Hide recyclerview, show Lottie Animation & helper textview
             binding.rvTodoList.visibility = View.GONE
-            binding.lottieAnim.setAnimation(lottieAnimFile)
+            binding.lottieAnim.visibility = View.VISIBLE
+            binding.tvNoTasks.visibility = View.VISIBLE
+            if (lottieAnimFile == R.raw.empty_box)
+                binding.lottieAnim.setAnimation(lottieAnimFile)
             binding.lottieAnim.playAnimation()
         }
     }

@@ -15,4 +15,7 @@
     <string name="cd_yellow_circle">Yellow Circle</string>
     <string name="cd_red_circle">Red circle</string>
     <string name="cd_priority">Priority of the todo</string>
+    <string name="error_no_todo">Enter todo description</string>
+    <string name="error_no_tag">Enter tag</string>
+    <string name="no_tasks">Oh no! Zuper box is empty, create a new Todo.</string>
 </resources>

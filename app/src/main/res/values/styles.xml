@@ -21,4 +21,11 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
+
+    <style name="style_textInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">@color/purple_500</item>
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorControlHighlight">@color/purple_500</item>
+        <item name="colorControlNormal">@color/purple_500</item>
+    </style>
 </resources>

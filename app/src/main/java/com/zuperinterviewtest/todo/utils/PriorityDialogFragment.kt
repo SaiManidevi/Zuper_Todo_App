@@ -12,9 +12,7 @@ class PriorityDialogFragment : DialogFragment() {
     private lateinit var listener: PriorityDialogListener
 
     interface PriorityDialogListener {
-        fun onPriorityLowClick()
-        fun onPriorityMediumClick()
-        fun onPriorityHighClick()
+        fun onTodoPriorityClick(selectedPriority: Constants.PRIORITY)
     }
 
     override fun onAttach(context: Context) {
@@ -46,12 +44,13 @@ class PriorityDialogFragment : DialogFragment() {
                 priorityList = priorityList
             )
             builder.setAdapter(adapter) { dialogInterface, i ->
-                when (i) {
-                    0 -> listener.onPriorityLowClick()
-                    1 -> listener.onPriorityMediumClick()
-                    2 -> listener.onPriorityHighClick()
-                    else -> listener.onPriorityLowClick()
+                val selectedPriority = when (i) {
+                    0 -> Constants.PRIORITY.LOW
+                    1 -> Constants.PRIORITY.MEDIUM
+                    2 -> Constants.PRIORITY.HIGH
+                    else -> Constants.PRIORITY.LOW
                 }
+                listener.onTodoPriorityClick(selectedPriority)
                 dialogInterface.dismiss()
             }
             // TODO: Check binding or ensure a better way to handle priority clicks

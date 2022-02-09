@@ -1,5 +1,7 @@
 package com.zuperinterviewtest.todo.utils
 
+import androidx.annotation.RawRes
+
 object Constants {
     // Constants for the TodoResults URL - refer:
     // // http://167.71.235.242:3000/todo?_page=1&_limit=15&author=Manidevi
@@ -11,4 +13,9 @@ object Constants {
     const val SAMPLE_AUTHOR = "Ranjith"
     const val AUTHOR = "Manidevi"
     const val TAG = "tag"
+    enum class PRIORITY{
+        LOW,
+        MEDIUM,
+        HIGH
+    }
 }

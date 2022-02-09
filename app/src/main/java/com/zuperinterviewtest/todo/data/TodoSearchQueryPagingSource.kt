@@ -1,9 +1,9 @@
-package com.zuperinterviewtest.todo.data.remote
+package com.zuperinterviewtest.todo.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.zuperinterviewtest.todo.data.TodoPagingSource
 import com.zuperinterviewtest.todo.data.models.Todo
+import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.utils.Constants
 import retrofit2.HttpException
 import java.io.IOException

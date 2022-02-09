@@ -5,11 +5,15 @@ import androidx.paging.PagingState
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.utils.Constants
+import com.zuperinterviewtest.todo.utils.DataStoreManager
 import retrofit2.HttpException
 import java.io.IOException
 import kotlin.math.ceil
 
-class TodoPagingSource(private val apiHelper: TodoApiHelper) : PagingSource<Int, Todo>() {
+class TodoPagingSource(
+    private val apiHelper: TodoApiHelper,
+    private val dataStoreManager: DataStoreManager
+) : PagingSource<Int, Todo>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Todo> {
         return try {
@@ -18,8 +22,10 @@ class TodoPagingSource(private val apiHelper: TodoApiHelper) : PagingSource<Int,
             val response = apiHelper.getTodos(
                 page = nextPageNumber,
                 limit = LIMIT,
-                author = Constants.SAMPLE_AUTHOR
+                author = Constants.AUTHOR
             )
+            val totalRecords: Int = response.body()?.total_records ?: 0
+            dataStoreManager.updateTotalTodoCount(totalRecords)
             // Compute the next page number. Since limit is 15, calculate the total_records/15 and
             // get the ceil value of the result. For eg: 48/15 = 3.2, so ceil(3.2) = 4 i.e 4 pages
             val totalPages: Int? =
