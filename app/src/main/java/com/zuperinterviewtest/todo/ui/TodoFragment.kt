@@ -106,9 +106,13 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                         tag = newTodoTag,
                         is_completed = false,
                         priority = currentPriority,
-                        id = viewmodel.totalCount + 1
+                        id = viewmodel.totalCount + 201
                     )
                     viewmodel.postNewTodo(newTodo)
+                    fetchAllTodos()
+                    // Clear the title and text edittext
+                    tedTaskName.text?.clear()
+                    tedTaskTag.text?.clear()
                 }
             }
         }
