@@ -1,6 +1,5 @@
 package com.zuperinterviewtest.todo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,13 +21,12 @@ class TagViewViewModel @Inject constructor(private val todoRepository: TodoRepos
         // call is main-safe, since within repository we are making
         // the request in Dispatchers.IO
         val response = todoRepository.getAllTodos()
-        val todoList: MutableList<Todo> = (response.body()?.todo ?: emptyList()) as MutableList<Todo>
+        val todoList: MutableList<Todo> =
+            (response.body()?.todo ?: emptyList()) as MutableList<Todo>
         if (todoList.isNotEmpty()) {
             todoList.sortBy {
                 it.tag
             }
-            Log.d("TESTE","$todoList")
-
             _allTodos.value = todoList
         }
     }

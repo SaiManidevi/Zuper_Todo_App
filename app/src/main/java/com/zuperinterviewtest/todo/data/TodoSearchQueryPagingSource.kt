@@ -22,8 +22,8 @@ class TodoSearchQueryPagingSource(
             val response = apiHelper.getTodosBySearchQuery(
                 page = nextPageNumber,
                 limit = TodoPagingSource.LIMIT,
-                author = Constants.SAMPLE_AUTHOR,
-                searchQueryTag = searchQuery
+                author = Constants.AUTHOR,
+                searchQueryTag = searchQuery.trim()
             )
             // Compute the next page number. Since limit is 15, calculate the total_records/15 and
             // get the ceil value of the result. For eg: 48/15 = 3.2, so ceil(3.2) = 4 i.e 4 pages

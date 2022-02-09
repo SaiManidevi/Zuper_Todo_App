@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.zuperinterviewtest.todo.data.TodoRepository
+import com.zuperinterviewtest.todo.data.DefaultTodoRepository
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.utils.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TodoViewModel @Inject constructor(
-    private val repository: TodoRepository, private val dataStoreManager: DataStoreManager
+    private val repository: DefaultTodoRepository, private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     val totalTodoCount = dataStoreManager.getTotalTodoCount().asLiveData()

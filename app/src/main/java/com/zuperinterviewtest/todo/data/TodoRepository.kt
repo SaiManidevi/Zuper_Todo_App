@@ -3,12 +3,12 @@ package com.zuperinterviewtest.todo.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.data.models.TodoResult
-import com.zuperinterviewtest.todo.utils.Constants
+import com.zuperinterviewtest.todo.data.remote.TodoApiHelper
 import com.zuperinterviewtest.todo.utils.Constants.AUTHOR
 import com.zuperinterviewtest.todo.utils.DataStoreManager
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -18,9 +18,10 @@ import javax.inject.Singleton
 
 @Singleton
 class TodoRepository @Inject constructor(
-    private val todoApiHelper: TodoApiHelper
-) {
-    suspend fun getAllTodos(): Response<TodoResult> = withContext(Dispatchers.IO) {
+    private val todoApiHelper: TodoApiHelper,
+    private val dispatcher: CoroutineDispatcher
+) : DefaultTodoRepository {
+    override suspend fun getAllTodos(): Response<TodoResult> = withContext(Dispatchers.IO) {
         todoApiHelper.getTodos(
             page = INITIAL_PAGE,
             limit = LIMIT_TAG_VIEW,
@@ -32,8 +33,8 @@ class TodoRepository @Inject constructor(
      * Function that returns a flow encapsulated in PagingData [Todo]
      * @param pagingConfig - PagingConfiguration given below in this class
      */
-    fun getTodoResults(
-        pagingConfig: PagingConfig = getDefaultPageConfig(), dataStoreManager: DataStoreManager
+    override fun getTodoResults(
+        pagingConfig: PagingConfig, dataStoreManager: DataStoreManager
     ): Flow<PagingData<Todo>> {
         return Pager(
             config = pagingConfig,
@@ -46,8 +47,8 @@ class TodoRepository @Inject constructor(
         ).flow
     }
 
-    fun getTodoResultsBySearchQuery(
-        pagingConfig: PagingConfig = getDefaultPageConfig(),
+    override fun getTodoResultsBySearchQuery(
+        pagingConfig: PagingConfig,
         searchTag: String
     ): Flow<PagingData<Todo>> {
         return Pager(config = pagingConfig,
@@ -60,21 +61,21 @@ class TodoRepository @Inject constructor(
         ).flow
     }
 
-    private fun getDefaultPageConfig(): PagingConfig {
+    override fun getDefaultPageConfig(): PagingConfig {
         return PagingConfig(
             pageSize = DEFAULT_PAGE_SIZE,
             enablePlaceholders = false
         )
     }
 
-    suspend fun postNewTodo(newTodo: Todo): Response<Todo> {
-        return withContext(Dispatchers.IO) {
+    override suspend fun postNewTodo(newTodo: Todo): Response<Todo> {
+        return withContext(dispatcher) {
             todoApiHelper.postNewTodo(newTodo = newTodo)
         }
     }
 
-    suspend fun updateTodoCompletedStatus(updatedTodo: Todo) {
-        withContext(Dispatchers.IO) {
+    override suspend fun updateTodoCompletedStatus(updatedTodo: Todo) {
+        withContext(dispatcher) {
             todoApiHelper.updateTodoCompletedStatus(
                 todoId = updatedTodo.id,
                 updatedTodo = updatedTodo

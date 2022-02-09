@@ -1,15 +1,12 @@
 package com.zuperinterviewtest.todo.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
-import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -106,7 +103,7 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
                         tag = newTodoTag,
                         is_completed = false,
                         priority = currentPriority,
-                        id = viewmodel.totalCount + 201
+                        id = viewmodel.totalCount + (System.currentTimeMillis().mod(1000))
                     )
                     viewmodel.postNewTodo(newTodo)
                     fetchAllTodos()
