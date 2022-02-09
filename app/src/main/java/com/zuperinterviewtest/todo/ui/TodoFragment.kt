@@ -78,15 +78,11 @@ class TodoFragment : Fragment(), PriorityDialogFragment.PriorityDialogListener {
         binding.includedBottomSheet.apply {
             // Handle error message & removal of error message for TextInputLayout - Title
             tedTaskName.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrBlank()) tilTaskName.error =
-                    getString(R.string.error_no_todo)
-                else tilTaskName.error = null
+                if (!text.isNullOrBlank()) tilTaskName.error = null
             }
             // Handle error message & removal of error message for TextInputLayout - TAG
             tedTaskTag.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrBlank()) tilTaskTag.error =
-                    getString(R.string.error_no_tag)
-                else tilTaskTag.error = null
+                if (!text.isNullOrBlank()) tilTaskTag.error = null
             }
             // Set up [CREATE TASK] button click listener
             btCreateTask.setOnClickListener {
