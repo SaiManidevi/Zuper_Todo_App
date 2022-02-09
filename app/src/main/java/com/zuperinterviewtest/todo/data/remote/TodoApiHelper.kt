@@ -2,8 +2,6 @@ package com.zuperinterviewtest.todo.data.remote
 
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.data.models.TodoResult
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 
 /**

@@ -1,6 +1,5 @@
 package com.zuperinterviewtest.todo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.zuperinterviewtest.todo.data.models.Todo
 import com.zuperinterviewtest.todo.databinding.ItemTagTodoBinding
-import com.zuperinterviewtest.todo.databinding.ItemTodoBinding
 
 var previousTag: String = "none"
 
-class TagViewAdapter() :
+class TagViewAdapter :
     ListAdapter<Todo, TagViewAdapter.TagViewAdapterViewHolder>(TodoTagViewDiffCallback()) {
 
     class TagViewAdapterViewHolder(private val binding: ItemTagTodoBinding) :
@@ -25,20 +23,17 @@ class TagViewAdapter() :
                 executePendingBindings()
             }
             val currentTag = todo.tag.trim()
-            Log.d("TESTE", "Previous: $previousTag Current: $currentTag")
             if (currentTag.contentEquals(previousTag, ignoreCase = true)) {
                 // Same tag, so hide the tag card
                 binding.itemCardTagAll.visibility = View.GONE
                 // set current tag to previous tag
                 previousTag = currentTag
-                Log.d("TESTE", "Previous: $previousTag SAME AS Current: $currentTag")
             } else {
                 // New tag, display tag card
                 binding.itemCardTagAll.visibility = View.VISIBLE
                 binding.itemTvTagAll.text = currentTag
                 // set current tag to previous tag
                 previousTag = currentTag
-                Log.d("TESTE", "Previous: $previousTag NOT SAME AS Current: $currentTag")
             }
         }
 

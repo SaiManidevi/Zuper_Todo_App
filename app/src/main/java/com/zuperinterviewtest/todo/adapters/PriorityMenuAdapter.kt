@@ -75,7 +75,7 @@ class PriorityMenuAdapter(context: Context, resource: Int, private val priorityL
         return priorityList.size
     }
 
-    override fun getItem(position: Int): String? {
+    override fun getItem(position: Int): String {
         return priorityList[position]
     }
 }

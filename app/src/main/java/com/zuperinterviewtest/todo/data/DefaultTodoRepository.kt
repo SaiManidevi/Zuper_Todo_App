@@ -12,7 +12,7 @@ interface DefaultTodoRepository {
     suspend fun getAllTodos(): Response<TodoResult>
 
     /**
-     * Function that returns a flow encapsulated in PagingData [Todo_Data]
+     * Function that returns a flow encapsulated in PagingData [Todo]
      * @param pagingConfig - PagingConfiguration given below in this class
      */
     fun getTodoResults(

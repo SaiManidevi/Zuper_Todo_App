@@ -7,8 +7,6 @@ import com.zuperinterviewtest.todo.utils.Constants.QUERY_AUTHOR
 import com.zuperinterviewtest.todo.utils.Constants.QUERY_LIMIT
 import com.zuperinterviewtest.todo.utils.Constants.QUERY_PAGE
 import com.zuperinterviewtest.todo.utils.Constants.TAG
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
